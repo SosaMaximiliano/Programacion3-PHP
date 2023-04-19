@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.addEventListener("load", () => {
+        var num1, num2, resultado, boton;
+        num1 = document.getElementById("txtN1");
+        num2 = document.getElementById("txtN2");
+        resultado = document.getElementById("txtR");
+        boton = document.getElementById("btn");
+
+        function sumar(a, b) {
+          return a + b;
+        }
+
+        boton.addEventListener("click", function () {
+          resultado.value = sumar(parseInt(num1.value), parseInt(num2.value));
+          num1.value = "";
+          num2.value = "";
+        });
+      });
+    </script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Maxi</td>
+          <td>Sosa</td>
+          <td>1234567</td>
+        </tr>
+        <tr>
+          <td>Yan</td>
+          <td>Ignazi</td>
+          <td>7654321</td>
+        </tr>
+        <tr>
+          <td>Kali</td>
+          <td>Nera</td>
+          <td>666</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <label for="">Numero 1:</label>
+    <input type="text" id="txtN1" /><br />
+
+    <label for="">Numero 2:</label>
+    <input type="text" id="txtN2" /><br />
+
+    <button id="btn">Sumar</button><br />
+
+    <label for="">Resultado:</label>
+    <input type="text" id="txtR" /><br />
+  </body>
+</html>
