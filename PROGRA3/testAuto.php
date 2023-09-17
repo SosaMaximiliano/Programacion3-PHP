@@ -53,7 +53,6 @@ Auto::MostrarAuto($auto1);
 Auto::AltaAuto($auto1);
 Auto::AltaAuto($auto5);
 Auto::AltaAuto($auto3);
+Auto::AltaAuto($auto4);
 
 Auto::LeerArchivo();
-
-var_dump(Auto::BuscarAuto($auto3));
