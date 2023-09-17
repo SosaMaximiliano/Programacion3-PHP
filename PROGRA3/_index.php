@@ -1,11 +1,10 @@
 <?php
 
-include_once 'Usuario.php';
+$usuario = $_GET['nombre'];
 
-$usuario = new Usuario("Max", "Payne");
-
-echo $usuario->Saludar();
-
+echo 'HOLA ' . $usuario;
 echo '<br>';
 
-include_once 'aplicacionN1.php';
+echo $_SERVER['REQUEST_METHOD'];
+
+echo '<br>';

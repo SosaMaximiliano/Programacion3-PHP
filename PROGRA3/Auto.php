@@ -26,6 +26,12 @@ Crear un método de clase, llamado “Add” que permita sumar dos objetos “Au
 de la misma marca, y del mismo color, de lo contrario informarlo) y que retorne un Double con
 la suma de los precios o cero si no se pudo realizar la operación.
 Ejemplo: $importeDouble = Auto::Add($autoUno, $autoDos);
+
+Crear un método de clase para poder hacer el alta de un Auto, guardando los datos en un archivo
+autos.csv.
+Hacer los métodos necesarios en la clase Auto para poder leer el listado desde el archivo
+autos.csv
+Se deben cargar los datos en un array de autos.
 */
 
 class Auto
@@ -92,5 +98,16 @@ class Auto
             return "No se pueden sumar autos de distintos colores";
 
         return $auto1->getPrecio() + $auto2->getPrecio();
+    }
+
+    public static function AltaAuto(Auto $auto)
+    {
+        $archivo = fopen("_Autos/autos.csv", "a");
+        fwrite($archivo, $auto->_marca . ';');
+        fwrite($archivo, $auto->_color . ';');
+        fwrite($archivo, $auto->_precio . ';');
+        fwrite($archivo, $auto->_fecha . ';');
+
+        fclose($archivo);
     }
 }

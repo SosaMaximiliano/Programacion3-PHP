@@ -52,3 +52,5 @@ echo '<br>';
 Auto::MostrarAuto($auto3);
 echo '<br>';
 Auto::MostrarAuto($auto5);
+
+Auto::AltaAuto($auto1);
