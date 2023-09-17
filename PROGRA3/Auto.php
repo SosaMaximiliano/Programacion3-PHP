@@ -36,53 +36,51 @@ Se deben cargar los datos en un array de autos.
 
 class Auto
 {
-    private $_color;
-    private $_precio;
-    private $_marca;
-    private $_fecha;
+    private $props = array();
 
     function __construct($marca, $color, $precio = 263000, $fecha = null)
     {
-        $this->_marca = $marca;
-        $this->_color = $color;
-        $this->_precio = $precio;
+        $this->props["marca"] = $marca;
+        $this->props["color"] = $color;
+        $this->props["precio"] = $precio;
         if ($fecha == null)
-            $this->_fecha = date("d/m/Y");
-        else $this->_fecha = $fecha;
+            $this->props["fecha"] = date("d/m/Y");
+        else $this->props["fecha"] = $fecha;
     }
 
     public function getPrecio()
     {
-        return $this->_precio;
+
+        return $this->props["precio"];
     }
 
     public function getColor()
     {
-        return $this->_color;
+        return $this->props["color"];
     }
 
     public function getMarca()
     {
-        return $this->_marca;
+        return $this->props["marca"];
     }
 
     public function getFecha()
     {
-        return $this->_fecha;
+        return $this->props["fecha"];
     }
 
 
     public function AgregarImpuestos($impuestos)
     {
-        $this->_precio += $impuestos;
+        $this->props["precio"] += $impuestos;
     }
 
     public static function MostrarAuto(Auto $auto)
     {
-        echo "Marca: " . $auto->_marca . '<br>';
-        echo "Color: " . $auto->_color . '<br>';
-        echo "Precio " . $auto->_precio . '<br>';
-        echo "Fecha: " . $auto->_fecha . '<br>';
+        foreach ($auto->props as $key => $value)
+        {
+            echo $key . ' => ' . $value . '<br>';
+        }
     }
 
     public function Equals(Auto $auto)
@@ -94,7 +92,7 @@ class Auto
     {
         if (!$auto1->Equals($auto2))
             return "No se pueden sumar autos de distintas marcas";
-        if (!($auto1->_color == $auto2->_color))
+        if (!($auto1->props["color"] == $auto2->props["color"]))
             return "No se pueden sumar autos de distintos colores";
 
         return $auto1->getPrecio() + $auto2->getPrecio();
@@ -102,12 +100,62 @@ class Auto
 
     public static function AltaAuto(Auto $auto)
     {
-        $archivo = fopen("_Autos/autos.csv", "a");
-        fwrite($archivo, $auto->_marca . ';');
-        fwrite($archivo, $auto->_color . ';');
-        fwrite($archivo, $auto->_precio . ';');
-        fwrite($archivo, $auto->_fecha . ';');
+        if (Auto::BuscarAuto($auto))
+            echo "El auto " . $auto->getMarca() . " " . $auto->getColor() . " ya se encuentra en el listado<br>";
+        else
+        {
+            $archivo = fopen("_Autos/autos.csv", "a");
+            if ($archivo !== false)
+            {
+                foreach ($auto->props as $e => $v)
+                {
+                    fwrite($archivo, $v . ';');
+                }
+                fwrite($archivo, "\n");
+                fclose($archivo);
+            }
+            else echo "No se pudo abrir el archivo para escritura.";
+        }
+    }
 
+    public static function LeerArchivo()
+    {
+        $archivo = fopen("_Autos/autos.csv", "r");
+        if ($archivo !== false)
+        {
+            while (($fila = fgetcsv($archivo, 0, ';')) !== false)
+            {
+                foreach ($fila as $e)
+                {
+                    echo $e . '<br>';
+                }
+            }
+            fclose($archivo);
+        }
+        else echo "No se pudo abrir el archivo para lectura.";
+    }
+
+    private static function BuscarAuto(Auto $auto)
+    {
+        $archivo = fopen("_Autos/autos.csv", "r");
+        if ($archivo !== false)
+        {
+            while (($fila = fgetcsv($archivo, 0, ';')) !== false)
+            {
+                if (
+                    $fila[0] == $auto->getMarca() &&
+                    $fila[1] == $auto->getColor() &&
+                    $fila[2] == $auto->getPrecio()
+                )
+                {
+                    fclose($archivo);
+                    return true;
+                }
+            }
+            fclose($archivo);
+            return false;
+        }
+        else echo "No se pudo abrir el archivo para busqueda.";
         fclose($archivo);
     }
 }

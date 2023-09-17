@@ -48,9 +48,12 @@ echo '<br>';
 
 
 Auto::MostrarAuto($auto1);
-echo '<br>';
-Auto::MostrarAuto($auto3);
-echo '<br>';
-Auto::MostrarAuto($auto5);
+
 
 Auto::AltaAuto($auto1);
+Auto::AltaAuto($auto5);
+Auto::AltaAuto($auto3);
+
+Auto::LeerArchivo();
+
+var_dump(Auto::BuscarAuto($auto3));
