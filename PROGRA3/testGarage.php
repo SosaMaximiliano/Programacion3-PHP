@@ -12,6 +12,7 @@ require_once "Garage.php";
 echo "<br>*****************GARAGE***********************<br>";
 
 $garage1 = new Garage("La cocherita", 700);
+$garage2 = new Garage("La cocherita2", 700);
 $garage1->MostrarGarage();
 
 echo '<br>';
@@ -25,6 +26,9 @@ echo '<br>';
 $garage1->Add($auto1);
 
 echo '<br>';
+Garage::AltaGarage($garage1);
+Garage::AltaGarage($garage2);
+Garage::LeerArchivo();
 echo '<br>';
 
 $garage1->Remove($auto5);
@@ -35,5 +39,3 @@ $garage1->Remove($auto1);
 echo '<br>';
 $garage1->Remove($auto3);
 echo '<br>';
-
-var_dump($garage1->Equals($auto1));

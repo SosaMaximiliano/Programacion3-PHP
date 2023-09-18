@@ -100,7 +100,7 @@ class Auto
 
     public static function AltaAuto(Auto $auto)
     {
-        if (Auto::BuscarAuto($auto))
+        if (self::BuscarAuto($auto))
             echo "El auto " . $auto->getMarca() . " " . $auto->getColor() . " ya se encuentra en el listado<br>";
         else
         {

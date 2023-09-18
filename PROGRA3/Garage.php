@@ -23,6 +23,12 @@ Ejemplo: $miGarage->Add($autoUno);
 Crear el método de instancia “Remove” para que permita quitar un objeto “Auto” del
 “Garage” (sólo si el auto está en el garaje, de lo contrario informarlo). Ejemplo:
 $miGarage->Remove($autoUno);
+
+Crear un método de clase para poder hacer el alta de un Garage y, guardando los datos en un archivo
+garages.csv.
+Hacer los métodos necesarios en la clase Garage para poder leer el listado desde el archivo
+garage.csv
+Se deben cargar los datos en un array de garage.
 */
 
 include_once 'Auto.php';
@@ -90,5 +96,60 @@ class Garage
             }
         }
         echo "El auto no se encuentra en el garage";
+    }
+
+    public static function AltaGarage(Garage $garage)
+    {
+        if (self::BuscarGarage($garage))
+            echo "El garage " . $garage->getRazonSocial() . " ya se encuentra en el listado<br>";
+        else
+        {
+            $archivo = fopen("_Garages/garages.csv", "a");
+            if ($archivo !== false)
+            {
+                fwrite($archivo, $garage->getRazonSocial() . ';');
+                fwrite($archivo, $garage->getPrecio());
+                fwrite($archivo, "\n");
+                fclose($archivo);
+            }
+            else echo "No se pudo abrir el archivo para escritura.";
+        }
+    }
+
+    public static function LeerArchivo()
+    {
+        $archivo = fopen("_Garages/garages.csv", "r");
+        if ($archivo !== false)
+        {
+            while (($fila = fgetcsv($archivo, 0, ';')) !== false)
+            {
+                foreach ($fila as $e)
+                {
+                    echo $e . '<br>';
+                }
+            }
+            fclose($archivo);
+        }
+        else echo "No se pudo abrir el archivo para lectura.";
+    }
+
+    private static function BuscarGarage(Garage $garage)
+    {
+        $archivo = fopen("_Garages/garages.csv", "r");
+        if ($archivo !== false)
+        {
+            while (($fila = fgetcsv($archivo, 0, ';')) !== false)
+            {
+                if ($fila[0] == $garage->getRazonSocial())
+                {
+                    fclose($archivo);
+                    return true;
+                }
+            }
+            fclose($archivo);
+            return false;
+        }
+        else echo "No se pudo abrir el archivo para busqueda.";
+        fclose($archivo);
     }
 }
