@@ -16,9 +16,9 @@ include_once "Usuario.php";
 $nombre = $_POST["nombre"];
 $apellido = $_POST["apellido"];
 $mail = $_POST["mail"];
+$clave = $_POST["clave"];
 
-$user = new Usuario($nombre, $apellido, $mail);
+$user = new Usuario($nombre, $apellido, $mail, $clave);
 
 $user->MostrarDatos();
-Usuario::Baja($user);
-//Usuario::Alta($user);
+//Usuario::Baja($user);
