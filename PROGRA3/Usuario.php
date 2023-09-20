@@ -35,11 +35,14 @@ class Usuario
                     echo "Nombre: $fila[0]<br>";
                     echo "Apellido: $fila[1]<br>";
                     echo "Correo: $fila[2]<br>";
+                    fclose($archivo);
+                    return true;
                 }
             }
-            fclose($archivo);
-            return false;
+            echo "Usuario inexistente<br>";
         }
+        fclose($archivo);
+        return false;
     }
 
     public static function MostrarListado()
@@ -89,7 +92,7 @@ class Usuario
     {
         if (self::Equals($u))
         {
-            echo "El usuario ya se encuentra ingresado<br>";
+            echo "El usuario $u->_nombre $u->_apellido ya se encuentra ingresado<br>";
             return false;
         }
         else
@@ -138,6 +141,7 @@ class Usuario
                 {
                     $usuariosAux[] = $fila;
                 }
+                else $aux = "$fila[0] $fila[1]";
             }
             fclose($archivo);
         }
@@ -151,6 +155,8 @@ class Usuario
             }
             fclose($archivo);
         }
+
+        echo "Usuario $aux eliminado<br>";
     }
 
     public static function ValidarUsuario($mail, $clave)
@@ -164,14 +170,14 @@ class Usuario
                     if ($fila[3] === $clave)
                     {
                         fclose($archivo);
-                        echo "Verificado";
+                        echo "Verificado<br>";
                         return true;
                     }
-                    echo "Error en los datos";
+                    echo "Error en los datos<br>";
                     return false;
                 }
             }
-            echo "Usuario no registrado";
+            echo "Usuario no registrado<br>";
             return false;
         }
     }

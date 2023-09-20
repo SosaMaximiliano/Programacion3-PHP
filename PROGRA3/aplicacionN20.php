@@ -13,12 +13,17 @@ Hacer los métodos necesarios en la clase usuario
 
 include_once "Usuario.php";
 
-$nombre = $_POST["nombre"];
-$apellido = $_POST["apellido"];
-$mail = $_POST["mail"];
-$clave = $_POST["clave"];
+if (isset($_POST["nombre"]) && isset($_POST["apellido"]) && isset($_POST["mail"]) && isset($_POST["clave"]))
+{
+    $nombre = $_POST["nombre"];
+    $apellido = $_POST["apellido"];
+    $mail = $_POST["mail"];
+    $clave = $_POST["clave"];
 
-$user = new Usuario($nombre, $apellido, $mail, $clave);
+    $user = new Usuario($nombre, $apellido, $mail, $clave);
 
-$user->MostrarDatos();
-//Usuario::Baja($user);
+    $user->MostrarDatos();
+
+    //Usuario::Baja($user);
+}
+else echo "Complete todos los datos";

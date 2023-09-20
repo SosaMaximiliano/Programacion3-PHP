@@ -15,7 +15,14 @@ Hacer los métodos necesarios en la clase usuario.
 
 require_once "Usuario.php";
 
-$mail = $_POST["mail"];
-$clave = $_POST["clave"];
+if (!(isset($_POST["mail"]) && isset($_POST["clave"])))
+{
+    echo "Completar los campos";
+}
+else
+{
+    $mail = $_POST["mail"];
+    $clave = $_POST["clave"];
 
-Usuario::ValidarUsuario($mail, $clave);
+    Usuario::ValidarUsuario($mail, $clave);
+}
