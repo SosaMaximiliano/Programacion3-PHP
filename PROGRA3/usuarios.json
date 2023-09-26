@@ -1,0 +1,26 @@
+[
+    {
+        "id": 302,
+        "nombre": "Max",
+        "apellido": "Payne",
+        "mail": "correo@correo.com",
+        "clave": "1234",
+        "registro": "2023-09-26"
+    },
+    {
+        "id": 303,
+        "nombre": "John",
+        "apellido": "Connor",
+        "mail": "correo@mail.com",
+        "clave": "1234",
+        "registro": "2023-09-26"
+    },
+    {
+        "id": 304,
+        "nombre": "Bruce",
+        "apellido": "Wayne",
+        "mail": "yosoybatman@mail.com",
+        "clave": "1234",
+        "registro": "2023-09-26"
+    }
+]

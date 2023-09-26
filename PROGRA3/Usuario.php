@@ -7,6 +7,7 @@ class Usuario
     private $_id;
     private $_mail;
     private $_clave;
+    private $_registro;
 
     private static $usuarios = array();
 
@@ -16,95 +17,91 @@ class Usuario
         $this->_apellido = $apellido;
         $this->_mail = $mail;
         $this->_clave = $clave;
-        self::Alta($this);
+        $this->_registro = date('Y-m-d');
+        self::AltaJSON($this);
     }
 
-    public function getMail()
+    public function MostrarDatosJSON()
     {
-        return $this->_mail;
-    }
-
-    public function MostrarDatos()
-    {
-        if ($archivo = fopen("usuarios.csv", "r"))
+        $datos = self::LeerJSON();
+        foreach ($datos as $e)
         {
-            while ($fila = fgetcsv($archivo, 0, ';'))
+            if ($this->_mail === $e["mail"])
             {
-                if ($this->_mail === $fila[2])
+                foreach ($e as $key => $value)
                 {
-                    echo "Nombre: $fila[0]<br>";
-                    echo "Apellido: $fila[1]<br>";
-                    echo "Correo: $fila[2]<br>";
-                    fclose($archivo);
-                    return true;
+                    if ($key != "clave")
+                        echo "$key : $value <br>";
                 }
             }
-            echo "Usuario inexistente<br>";
         }
-        fclose($archivo);
+    }
+
+    public static function MostrarListadoJSON()
+    {
+        $datos = self::LeerJSON();
+        foreach ($datos as $e)
+        {
+            foreach ($e as $key => $value)
+            {
+                if ($key != "clave")
+                    echo "$key : $value <br>";
+            }
+            echo '<br>';
+        }
+    }
+
+    private static function ExisteID($id)
+    {
+        $listado = self::LeerJSON();
+        foreach ($listado as $e)
+        {
+            if ($e["id"] === $id)
+                return true;
+        }
         return false;
     }
 
-    public static function MostrarListado()
+    public static function EqualsJSON(Usuario $u)
     {
-        $cont = 0;
-        if ($archivo = fopen("usuarios.csv", "r"))
+        $listado = self::LeerJSON();
+        foreach ($listado as $e)
         {
-            while ($fila = fgetcsv($archivo, 0, ';'))
-            {
-                self::$usuarios[] = $fila;
-            }
-            fclose($archivo);
-
-            foreach (self::$usuarios as $e)
-            {
-                $cont++;
-                echo "<ul><u>USUARIO $cont</u>";
-                foreach ($e as $v)
-                {
-                    echo "<li>$v</li>";
-                }
-                echo "<br>";
-                echo "</ul";
-            }
+            if ($e["mail"] == $u->_mail)
+                return true;
         }
+        return false;
     }
 
-    private static function Equals(Usuario $u)
+    private static function AltaJSON(Usuario $u)
     {
-        $maux = "";
-        if ($archivo = fopen("usuarios.csv", "r"))
-        {
-            while ($fila = fgetcsv($archivo, 0, ';'))
-            {
-                $maux = $fila[2];
-                if ($u->_mail === $maux)
-                {
-                    fclose($archivo);
-                    return true;
-                }
-            }
-            fclose($archivo);
-            return false;
-        }
-    }
-    private static function Alta(Usuario $u)
-    {
-        if (self::Equals($u))
+        #CARGO LA LISTA DE USUARIOS
+        $usuarios = self::LeerJSON();
+
+        #REVISO SI EL USUARIO EXISTE
+        if (self::EqualsJSON($u))
         {
             echo "El usuario $u->_nombre $u->_apellido ya se encuentra ingresado<br>";
             return false;
         }
         else
+        #CARGO LOS DATOS
         {
-            if ($archivo =  fopen("usuarios.csv", "a"))
+            $usuarioAux = array(
+                "id" => $u->_id = self::UltimoIDJSON() + 1,
+                "nombre" => $u->_nombre,
+                "apellido" => $u->_apellido,
+                "mail" => $u->_mail,
+                "clave" => $u->_clave,
+                "registro" => $u->_registro,
+            );
+            #AGREGO EL USUARIO A LA LISTA
+            $usuarios[] = $usuarioAux;
+            $jsonData = json_encode($usuarios, JSON_PRETTY_PRINT);
+
+            if ($archivo = fopen("usuarios.json", "w"))
             {
-                $u->_id = self::UltimoID() + 1;
-                fwrite($archivo, $u->_nombre . ";");
-                fwrite($archivo, $u->_apellido . ";");
-                fwrite($archivo, $u->_mail . ";");
-                fwrite($archivo, $u->_clave . ";");
-                fwrite($archivo, $u->_id . "\n");
+                fwrite($archivo, $jsonData . "\n");
                 fclose($archivo);
                 echo "Usuario ingresado correctamente<br>";
                 return true;
@@ -114,71 +111,69 @@ class Usuario
         }
     }
 
-    private static function UltimoID()
+    public static function LeerJSON()
     {
-        $idaux = 0;
-        if ($archivo = fopen("usuarios.csv", "r"))
-        {
-            while ($fila = fgetcsv($archivo, 0, ';'))
-            {
-                $idaux = $fila[4];
-            }
-            if ($idaux == 0)
-                $idaux = 300;
-            return $idaux;
-        }
+        $contenido = file_get_contents("usuarios.json");
+        return json_decode($contenido, true);
     }
 
-    public static function Baja(Usuario $u)
+    public static function UltimoIDJSON()
+    {
+        $listado = self::LeerJSON();
+        if (!empty($listado))
+        {
+            $ultimoUsuario = end($listado);
+            $idaux = $ultimoUsuario["id"];
+        }
+        else
+            $idaux = 300;
+        return $idaux;
+    }
+
+    public static function BajaJSON($id)
     {
         #GUARDO EL ARCHIVO EN UN ARRAY
-        $usuariosAux = array();
-        if ($archivo = fopen("usuarios.csv", "r"))
-        {
-            while ($fila = fgetcsv($archivo, 0, ';'))
-            {
-                if ($u->_mail !== $fila[2])
-                {
-                    $usuariosAux[] = $fila;
-                }
-                else $aux = "$fila[0] $fila[1]";
-            }
-            fclose($archivo);
-        }
+        $usuariosIn = self::LeerJSON();
+        $usuariosOut = array();
 
-        #SOBREESCRIBO EL ARCHIVO
-        if ($archivo = fopen("usuarios.csv", "w"))
+        #REVISO SI EXISTE
+        if (!Usuario::ExisteID($id))
         {
-            foreach ($usuariosAux as $e)
-            {
-                fputcsv($archivo, $e, ';');
-            }
-            fclose($archivo);
-        }
-
-        echo "Usuario $aux eliminado<br>";
-    }
-
-    public static function ValidarUsuario($mail, $clave)
-    {
-        if ($archivo = fopen("usuarios.csv", "r"))
-        {
-            while ($fila = fgetcsv($archivo, 0, ';'))
-            {
-                if ($fila[2] === $mail)
-                {
-                    if ($fila[3] === $clave)
-                    {
-                        fclose($archivo);
-                        echo "Verificado<br>";
-                        return true;
-                    }
-                    echo "Error en los datos<br>";
-                    return false;
-                }
-            }
-            echo "Usuario no registrado<br>";
+            echo "El usuario no existe";
             return false;
         }
+        else
+        {
+            foreach ($usuariosIn as $e)
+            {
+                if ($e["id"] !== $id)
+                {
+                    $usuariosOut[] = $e;
+                }
+            }
+            $jsonData = json_encode($usuariosOut, JSON_PRETTY_PRINT);
+
+            #SOBREESCRIBO EL ARCHIVO SIN EL REGISTRO
+            if ($archivo = fopen("usuarios.json", "w"))
+            {
+                fwrite($archivo, $jsonData . "\n");
+                fclose($archivo);
+                echo "Usuario eliminado correctamente<br>";
+            }
+            else echo "No se pudo abrir el archivo para escritura";
+            return false;
+        }
+    }
+
+    public static function ValidarUsuarioJSON($mail, $clave)
+    {
+        $listado = self::LeerJSON();
+        foreach ($listado as $e)
+        {
+            if ($e["mail"] === $mail && $e["clave"] === $clave)
+                return true;
+        }
+        echo "Usuario no registrado<br>";
+        return false;
     }
 }
