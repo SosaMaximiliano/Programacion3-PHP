@@ -7,8 +7,8 @@ if (isset($_GET['accion']))
         case 'GET':
             switch ($_GET['accion'])
             {
-                case 'testAuto':
-                    include 'testAuto.php';
+                case 'session':
+                    include 'session.php';
                     break;
                 case 'cookies':
                     include 'cookies.php';
