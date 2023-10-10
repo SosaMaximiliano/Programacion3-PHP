@@ -104,6 +104,7 @@ class Usuario
                 fwrite($archivo, $jsonData . "\n");
                 fclose($archivo);
                 echo "Usuario ingresado correctamente<br>";
+                self::$usuarios = $usuarios;
                 return true;
             }
             else echo "No se pudo abrir el archivo para escritura";
@@ -159,6 +160,8 @@ class Usuario
                 fwrite($archivo, $jsonData . "\n");
                 fclose($archivo);
                 echo "Usuario eliminado correctamente<br>";
+                self::$usuarios = $usuariosOut;
+                return true;
             }
             else echo "No se pudo abrir el archivo para escritura";
             return false;
