@@ -1,0 +1,44 @@
+[
+    {
+        "id": 301,
+        "sabor": "JyM",
+        "precio": 3000,
+        "tipo": "Piedra",
+        "cantidad": 12
+    },
+    {
+        "id": 302,
+        "sabor": "Napolitana",
+        "precio": 4000,
+        "tipo": "Piedra",
+        "cantidad": 13
+    },
+    {
+        "id": 303,
+        "sabor": "Napolitana",
+        "precio": 4000,
+        "tipo": "Molde",
+        "cantidad": 12
+    },
+    {
+        "id": 304,
+        "sabor": "JyM",
+        "precio": 3500,
+        "tipo": "Molde",
+        "cantidad": 14
+    },
+    {
+        "id": 305,
+        "sabor": "Muzzarella",
+        "precio": 2500,
+        "tipo": "Molde",
+        "cantidad": 16
+    },
+    {
+        "id": 307,
+        "sabor": "Muzzarella",
+        "precio": 3000,
+        "tipo": "Piedra",
+        "cantidad": 9
+    }
+]

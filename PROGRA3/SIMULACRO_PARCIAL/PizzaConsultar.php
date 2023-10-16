@@ -9,22 +9,11 @@ include_once "Pizza.php";
 
 $sabor = $_POST['sabor'];
 $tipo = $_POST['tipo'];
+$stock = Pizza::ExisteStock($sabor, $tipo);
 
-switch (Pizza::ExistePedido($sabor, $tipo) > 0)
-{
-    case 0:
-        echo "No hay pedidos en la lista";
-        break;
-
-    case -1:
-        echo "No hay de ese tipo";
-        break;
-
-    case -2:
-        echo "No hay de ese sabor";
-        break;
-
-    default:
-        echo "Si hay";
-        break;
-}
+if ($stock > 0)
+    echo "Si, hay<br>";
+elseif ($stock == -1)
+    echo "Hay de $sabor pero no de tipo $tipo<br>";
+else
+    echo "No hay<br>";

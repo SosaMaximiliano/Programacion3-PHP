@@ -7,7 +7,7 @@ class Pizza
     private $tipo;
     private $cantidad;
     private $id;
-    private static $pedidos = array();
+    private static $stock = array();
 
     public function __construct($sabor, $precio, $tipo, $cantidad)
     {
@@ -18,25 +18,25 @@ class Pizza
         self::AltaJSON($this);
     }
 
-    public function MostrarDatosJSON()
-    {
-        $datos = self::LeerJSON();
-        foreach ($datos as $e)
-        {
-            if ($this->tipo === $e["id"])
-            {
-                foreach ($e as $key => $value)
-                {
-                    if ($key != "clave")
-                        echo "$key : $value <br>";
-                }
-            }
-        }
-    }
+    // public function MostrarDatosJSON()
+    // {
+    //     $datos = self::LeerJSON();
+    //     foreach ($datos as $e)
+    //     {
+    //         if ($this->tipo === $e["id"])
+    //         {
+    //             foreach ($e as $key => $value)
+    //             {
+    //                 if ($key != "clave")
+    //                     echo "$key : $value <br>";
+    //             }
+    //         }
+    //     }
+    // }
 
-    public static function MostrarListadoJSON()
+    public static function MostrarListadoJSON($nombreArchivo)
     {
-        $datos = self::LeerJSON();
+        $datos = self::LeerJSON($nombreArchivo);
         foreach ($datos as $e)
         {
             foreach ($e as $key => $value)
@@ -48,30 +48,29 @@ class Pizza
         }
     }
 
-    public static function ExistePedido($sabor, $tipo)
+    public static function ExisteStock($sabor, $tipo)
     {
-
-        #ARREGLAR
-        $listado = self::LeerJSON();
-        $flagS = false;
-        $flagT = false;
+        $listado = self::LeerJSON("Pizza");
+        $arrayAux = array();
         foreach ($listado as $e)
         {
-            if ($e["sabor"] == $sabor && $e["tipo"] == $tipo)
-            {
-                $flagS = true;
-                $flagT = true;
-            }
-            else
-            if ($e["tipo"] == $tipo)
-                $flagT = true;
+            if ($e["cantidad"] > 0)
+                if ($e["sabor"] == $sabor)
+                    $arrayAux[] = $e;
         }
+        foreach ($arrayAux as $e)
+        {
+            if ($e["tipo"] == $tipo)
+                return $e["id"];
+        }
+        if (count($arrayAux) > 0)
+            return -1;
         return 0;
     }
 
     private static function Equals(Pizza $p)
     {
-        $listado = self::LeerJSON();
+        $listado = self::LeerJSON("Pizza");
         foreach ($listado as $e)
         {
             if ($e["sabor"] == $p->sabor && $e["tipo"] == $p->tipo)
@@ -80,9 +79,10 @@ class Pizza
         return 0;
     }
 
-    private static function ActualizoPedido($id, $cantidad)
+    public static function ActualizoStock($id, $cantidad)
     {
-        foreach (self::$pedidos as &$e)
+        self::$stock = self::LeerJSON("Pizza");
+        foreach (self::$stock as &$e)
         {
             if ($e["id"] == $id)
             {
@@ -92,59 +92,59 @@ class Pizza
         }
     }
 
-    private static function PedidoNuevo(Pizza $p)
+    private static function AgregoAStock(Pizza $p)
     {
-        $pedidoAux = array(
-            "id" => $p->id = self::UltimoIDJSON() + 1,
+        $stockAux = array(
+            "id" => $p->id = self::UltimoIDJSON("Pizza") + 1,
             "sabor" => $p->sabor,
             "precio" => $p->precio,
             "tipo" => $p->tipo,
             "cantidad" => $p->cantidad,
         );
         #AGREGO EL PEDIDO A LA LISTA
-        self::$pedidos[] = $pedidoAux;
+        self::$stock[] = $stockAux;
     }
 
     private static function AltaJSON(Pizza $p)
     {
-        self::$pedidos = self::LeerJSON();
+        self::$stock = self::LeerJSON("Pizza");
 
         $flag = false;
-        #REVISO SI EL PEDIDO EXISTE
+        #REVISO SI EL ITEM EXISTE
         if (($idAux = self::Equals($p)) > 0)
         {
-            self::ActualizoPedido($idAux, $p->cantidad);
+            self::ActualizoStock($idAux, $p->cantidad);
         }
         else
         #CARGO LOS DATOS
         {
-            self::PedidoNuevo($p);
+            self::AgregoAStock($p, "Pizza");
             $flag = true;
         }
 
-        $jsonData = json_encode(self::$pedidos, JSON_PRETTY_PRINT);
+        $jsonData = json_encode(self::$stock, JSON_PRETTY_PRINT);
         #ESCRIBO EN EL ARCHIVO
-        self::EscribirArchivo($jsonData);
+        self::EscribirArchivo($jsonData, "Pizza");
 
         if (!$flag)
-            echo "El pedido $p->sabor $p->tipo ya existe<br>Se suma al resto de pedidos";
+            echo "El pedido $p->sabor $p->tipo ya existe<br>Se suma al resto de stock";
         else
             echo "El pedido $p->sabor $p->tipo se ingresó correctamente<br>";
     }
 
-    public static function LeerJSON()
+    public static function LeerJSON($nombreArchivo)
     {
-        $contenido = file_get_contents("pedidos.json");
+        $contenido = file_get_contents("$nombreArchivo.json");
         return json_decode($contenido, true);
     }
 
-    public static function UltimoIDJSON()
+    public static function UltimoIDJSON($nombreArchivo)
     {
-        $listado = self::LeerJSON();
+        $listado = self::LeerJSON($nombreArchivo);
         if (!empty($listado))
         {
-            $ultimoUsuario = end($listado);
-            $idaux = $ultimoUsuario["id"];
+            $ultimoID = end($listado);
+            $idaux = $ultimoID["id"] + 1;
         }
         else
             $idaux = 300;
@@ -188,27 +188,28 @@ class Pizza
     //     }
     // }
 
-    public static function ValidarUsuarioJSON($mail, $clave)
-    {
-        $listado = self::LeerJSON();
-        foreach ($listado as $e)
-        {
-            if ($e["mail"] === $mail && $e["clave"] === $clave)
-                return true;
-        }
-        echo "Usuario no registrado<br>";
-        return false;
-    }
+    // public static function ValidarUsuarioJSON($mail, $clave)
+    // {
+    //     $listado = self::LeerJSON();
+    //     foreach ($listado as $e)
+    //     {
+    //         if ($e["mail"] === $mail && $e["clave"] === $clave)
+    //             return true;
+    //     }
+    //     echo "Usuario no registrado<br>";
+    //     return false;
+    // }
 
-    private static function EscribirArchivo($jsonData)
+
+    public static function EscribirArchivo($jsonData, $nombreArchivo)
     {
-        if ($archivo = fopen("pedidos.json", "w"))
+        if ($archivo = fopen("$nombreArchivo.json", "w"))
         {
             fwrite($archivo, $jsonData . "\n");
             fclose($archivo);
             return true;
         }
-        else echo "No se pudo abrir el archivo para escritura";
+        else echo "No se pudo abrir el archivo para escritura<br>";
         return false;
     }
 }
