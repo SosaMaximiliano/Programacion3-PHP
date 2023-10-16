@@ -50,16 +50,17 @@ class Pizza
 
     public static function ExistePedido($sabor, $tipo)
     {
+
+        #ARREGLAR
         $listado = self::LeerJSON();
         $flagS = false;
         $flagT = false;
         foreach ($listado as $e)
         {
-            if ($e["sabor"] == $sabor)
+            if ($e["sabor"] == $sabor && $e["tipo"] == $tipo)
             {
                 $flagS = true;
-                if ($e["tipo"] == $tipo)
-                    $flagT = true;
+                $flagT = true;
             }
             else
             if ($e["tipo"] == $tipo)
@@ -75,7 +76,6 @@ class Pizza
         {
             if ($e["sabor"] == $p->sabor && $e["tipo"] == $p->tipo)
                 return $e["id"];
-            break;
         }
         return 0;
     }
