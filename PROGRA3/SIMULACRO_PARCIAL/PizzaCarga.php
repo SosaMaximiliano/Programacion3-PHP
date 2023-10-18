@@ -7,9 +7,9 @@ identificador(emulado) .Sí el sabor y tipo ya existen , se actualiza el precio 
 
 include_once "Pizza.php";
 
-$sabor = $_GET['sabor'];
-$precio = $_GET['precio'];
-$tipo = $_GET['tipo'];
-$cantidad = $_GET['cantidad'];
+$sabor = $_POST['sabor'];
+$precio = $_POST['precio'];
+$tipo = $_POST['tipo'];
+$cantidad = $_POST['cantidad'];
 
 $pedido = new Pizza($sabor, $precio, $tipo, $cantidad);

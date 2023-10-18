@@ -1,0 +1,26 @@
+[
+    {
+        "id": "300000",
+        "nombre": "Juan Carlos",
+        "apellido": "Batman",
+        "tipoDni": "DNI",
+        "nroDni": "11222333",
+        "mail": "yosoybatman@mail",
+        "tipoCliente": "CO",
+        "pais": "Burzaco",
+        "ciudad": "Glew",
+        "telefono": "555-6666"
+    },
+    {
+        "id": "300001",
+        "nombre": "Bob Esponja",
+        "apellido": "Pantalones Cuadrados",
+        "tipoDni": "DNI",
+        "nroDni": "11222333",
+        "mail": "yonosoybatman@mail",
+        "tipoCliente": "IN",
+        "pais": "Burzaco",
+        "ciudad": "Glew",
+        "telefono": "555-6666"
+    }
+]

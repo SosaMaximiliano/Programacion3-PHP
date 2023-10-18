@@ -34,6 +34,7 @@ class Pedido
                     $cantidadStock = $e["cantidad"];
             }
         #LA CANTIDAD NO PUEDE SER MAYOR AL STOCK!!!
+        #No pude usar el metodo ActualizoStock de la otra clase
         if ($cantidad <= $cantidadStock)
         {
             foreach ($arrayStock as &$e)
@@ -59,7 +60,7 @@ class Pedido
             "tipo" => $tipo,
             "cantidad" => intval($cantidad),
             "fecha" => date('Y-m-d'),
-            "nroPedido" => self::UltimoPedido("Pedidos")
+            "pedido" => self::UltimoPedido("Pedidos")
         );
 
         $arrayPedidos[] = $pedidoAux;
@@ -80,13 +81,90 @@ class Pedido
         return true;
     }
 
+    private static function BajaPedido($pedido, $mail, $sabor, $tipo)
+    {
+        #traigo los pedidos
+        $arrayPedidos = Pizza::LeerJSON("Pedidos");
+        $arrayPedidosAux = array();
+        #guardo los que quiero conservar
+        foreach ($arrayPedidos as $e)
+        {
+            if (!($e["sabor"] == $sabor && $e["tipo"] == $tipo && $e["pedido"] == $pedido && $e["mail"] == $mail))
+                $arrayPedidosAux[] = $e;
+        }
+        var_dump($arrayPedidosAux);
+        #escribo el archivo sin el que quiero eliminar
+        $jsonP = json_encode($arrayPedidosAux, JSON_PRETTY_PRINT);
+        Pizza::EscribirArchivo($jsonP, "Pedidos");
+    }
+
+    public static function ModificarPedido($pedido, $mail, $sabor, $tipo, $cantidad)
+    {
+        #1 DEVUELVO EL PEDIDO AL STOCK
+        #traigo el listado de pedidos
+        $arrayPedidos = Pizza::LeerJSON("Pedidos");
+        $arrayStock = Pizza::LeerJSON("Pizza");
+        $cantPedido = 0;
+        #veo si el pedido existe
+        if (($idPedido = self::ExistePedido($pedido)) > 0)
+        {
+            #si existe me guardo el ID y con el ID busco la cantidad
+            foreach ($arrayPedidos as $e)
+            {
+                if ($idPedido === $e["id"])
+                {
+                    $cantPedido = $e["cantidad"];
+                    break;
+                }
+            }
+            #recupero el ID del stock
+            if ($idAux = (Pizza::Equals($sabor, $tipo)) > 0)
+            {
+                #devuelvo el pedido al stock
+                //Pizza::ActualizoStock($idAux, $cantPedido);
+                foreach ($arrayStock as &$e)
+                {
+                    echo "idAux = $idAux<br>";
+                    echo "id = " . $e["id"];
+                    if ($e["id"] == $idAux)
+                    {
+                        $e["cantidad"] += $cantPedido;
+                        break;
+                    }
+                }
+                #escribo el archivo de stock
+                $jsonS = json_encode($arrayStock, JSON_PRETTY_PRINT);
+                Pizza::EscribirArchivo($jsonS, "Pizza");
+                #borro el pedido del registro
+                self::BajaPedido($pedido, $mail, $sabor, $tipo);
+            }
+            #2 HAGO UN NUEVO PEDIDO
+            #Puedo llamar a AltaPedido()
+            // self::AltaPedido($mail, $sabor, $tipo, $cantidad);
+        }
+        else echo "El pedido no existe";
+    }
+
+
+    private static function ExistePedido($pedido)
+    {
+        $arrayPedidos = Pizza::LeerJSON("Pedidos");
+        foreach ($arrayPedidos as $e)
+        {
+            if ($e["pedido"] == $pedido)
+                return $e["id"];
+        }
+        return 0;
+    }
+
+
     public static function UltimoPedido($nombreArchivo)
     {
         $listado = Pizza::LeerJSON($nombreArchivo);
         if (!empty($listado))
         {
             $ultimoPedido = end($listado);
-            $idaux = $ultimoPedido["nroPedido"] + 1;
+            $idaux = $ultimoPedido["pedido"] + 1;
         }
         else
             $idaux = 1;

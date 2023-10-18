@@ -1,38 +1,20 @@
 [
     {
-        "id": 300,
-        "mail": "mail@correo",
-        "sabor": "Muzzarella",
-        "tipo": "Piedra",
-        "cantidad": 3,
-        "fecha": "2023-10-16",
-        "nroPedido": 1
-    },
-    {
-        "id": 301,
-        "mail": "mail@correo",
-        "sabor": "Muzzarella",
-        "tipo": "Piedra",
-        "cantidad": 3,
-        "fecha": "2023-10-16",
-        "nroPedido": 2
-    },
-    {
-        "id": 302,
-        "mail": "mail@correo",
-        "sabor": "JyM",
-        "tipo": "Piedra",
-        "cantidad": 1,
-        "fecha": "2023-10-16",
-        "nroPedido": 3
-    },
-    {
-        "id": 303,
+        "id": 305,
         "mail": "mail@correo",
         "sabor": "Napolitana",
         "tipo": "Piedra",
-        "cantidad": 2,
-        "fecha": "2023-10-16",
-        "nroPedido": 4
+        "cantidad": 5,
+        "fecha": "2023-10-17",
+        "pedido": 6
+    },
+    {
+        "id": 306,
+        "mail": "mail@correo",
+        "sabor": "Napolitana",
+        "tipo": "Piedra",
+        "cantidad": 5,
+        "fecha": "2023-10-17",
+        "pedido": 7
     }
 ]

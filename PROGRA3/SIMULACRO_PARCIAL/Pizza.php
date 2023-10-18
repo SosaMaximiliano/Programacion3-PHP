@@ -68,12 +68,12 @@ class Pizza
         return 0;
     }
 
-    private static function Equals(Pizza $p)
+    public static function Equals($sabor, $tipo)
     {
         $listado = self::LeerJSON("Pizza");
         foreach ($listado as $e)
         {
-            if ($e["sabor"] == $p->sabor && $e["tipo"] == $p->tipo)
+            if ($e["sabor"] == $sabor && $e["tipo"] == $tipo)
                 return $e["id"];
         }
         return 0;
@@ -111,7 +111,7 @@ class Pizza
 
         $flag = false;
         #REVISO SI EL ITEM EXISTE
-        if (($idAux = self::Equals($p)) > 0)
+        if (($idAux = self::Equals($p->sabor, $p->tipo)) > 0)
         {
             self::ActualizoStock($idAux, $p->cantidad);
         }
@@ -122,9 +122,15 @@ class Pizza
             $flag = true;
         }
 
-        $jsonData = json_encode(self::$stock, JSON_PRETTY_PRINT);
         #ESCRIBO EN EL ARCHIVO
+        $jsonData = json_encode(self::$stock, JSON_PRETTY_PRINT);
         self::EscribirArchivo($jsonData, "Pizza");
+
+        //**********************PARTE 4*************************
+        $extension = explode(".", $_FILES["imagen"]["full_path"]);
+        $destino = "ImagenesDePizzas/$p->sabor - $p->tipo." . $extension[1];
+        move_uploaded_file($_FILES['imagen']['tmp_name'], $destino);
+        //******************************************************
 
         if (!$flag)
             echo "El pedido $p->sabor $p->tipo ya existe<br>Se suma al resto de stock";

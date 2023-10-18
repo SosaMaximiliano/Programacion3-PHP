@@ -1,0 +1,38 @@
+[
+  {
+    "id": 300,
+    "mail": "mail@correo",
+    "sabor": "Pink Floyd",
+    "tipo": "Doble",
+    "cantidad": 2,
+    "fecha": "2023-10-05",
+    "pedido": 1
+  },
+  {
+    "id": 301,
+    "mail": "mail@correo",
+    "sabor": "ELP",
+    "tipo": "Doble",
+    "cantidad": 1,
+    "fecha": "2023-10-08",
+    "pedido": 2
+  },
+  {
+    "id": 302,
+    "mail": "batman@correo",
+    "sabor": "Rock",
+    "tipo": "Doble",
+    "cantidad": 5,
+    "fecha": "2023-10-15",
+    "pedido": 3
+  },
+  {
+    "id": 303,
+    "mail": "prince@correo",
+    "sabor": "Pop",
+    "tipo": "Simple",
+    "cantidad": 17,
+    "fecha": "2023-10-17",
+    "pedido": 4
+  }
+]

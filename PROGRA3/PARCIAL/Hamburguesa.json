@@ -1,0 +1,37 @@
+[
+  {
+    "id": 300,
+    "nombre": "Pop",
+    "precio": 1500,
+    "tipo": "Simple",
+    "cantidad": 9
+  },
+  {
+    "id": 301,
+    "nombre": "Rock",
+    "precio": 3000,
+    "tipo": "Doble",
+    "cantidad": 145
+  },
+  {
+    "id": 302,
+    "nombre": "ELP",
+    "precio": 5000,
+    "tipo": "Doble",
+    "cantidad": 29
+  },
+  {
+    "id": 303,
+    "nombre": "Pink Floyd",
+    "precio": 4000,
+    "tipo": "Doble",
+    "cantidad": 48
+  },
+  {
+    "id": 304,
+    "nombre": "King Crimson",
+    "precio": 4000,
+    "tipo": "Doble",
+    "cantidad": 40
+  }
+]

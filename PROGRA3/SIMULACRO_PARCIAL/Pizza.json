@@ -4,14 +4,14 @@
         "sabor": "JyM",
         "precio": 3000,
         "tipo": "Piedra",
-        "cantidad": 12
+        "cantidad": 48
     },
     {
         "id": 302,
         "sabor": "Napolitana",
         "precio": 4000,
         "tipo": "Piedra",
-        "cantidad": 13
+        "cantidad": 8
     },
     {
         "id": 303,
@@ -39,6 +39,13 @@
         "sabor": "Muzzarella",
         "precio": 3000,
         "tipo": "Piedra",
-        "cantidad": 9
+        "cantidad": 12
+    },
+    {
+        "id": 313,
+        "sabor": "Provolone",
+        "precio": 4200,
+        "tipo": "Piedra",
+        "cantidad": 65
     }
 ]
