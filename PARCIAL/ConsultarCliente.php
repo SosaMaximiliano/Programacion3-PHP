@@ -16,4 +16,4 @@ if (isset($_POST['tipoCliente']) && isset($_POST['id']))
 
     Cliente::MostrarCliente($tipoCliente, $id);
 }
-else echo "El cliente no existe";
+else echo "Completar todos los parametros";

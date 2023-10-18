@@ -16,17 +16,6 @@ class Manejador
         }
     }
 
-    // public static function Equals($sabor, $tipo)
-    // {
-    //     $listado = self::LeerJSON("Pizza");
-    //     foreach ($listado as $e)
-    //     {
-    //         if ($e["sabor"] == $sabor && $e["tipo"] == $tipo)
-    //             return $e["id"];
-    //     }
-    //     return 0;
-    // }
-
     public static function LeerJSON($nombreArchivo)
     {
         $contenido = file_get_contents("$nombreArchivo.json");
@@ -55,7 +44,7 @@ class Manejador
             $idaux = intval($ultimoID["id"] + 1);
         }
         else
-            $idaux = 300000;
+            $idaux = rand(300000, 600000);
         return $idaux;
     }
 }

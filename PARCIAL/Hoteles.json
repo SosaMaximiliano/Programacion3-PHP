@@ -6,7 +6,7 @@
         "tipoDni": "DNI",
         "nroDni": "11222333",
         "mail": "yosoybatman@mail",
-        "tipoCliente": "CO",
+        "tipoCliente": "Corporativo",
         "pais": "Burzaco",
         "ciudad": "Glew",
         "telefono": "555-6666"
@@ -18,9 +18,45 @@
         "tipoDni": "DNI",
         "nroDni": "11222333",
         "mail": "yonosoybatman@mail",
-        "tipoCliente": "IN",
+        "tipoCliente": "Individual",
         "pais": "Burzaco",
         "ciudad": "Glew",
+        "telefono": "555-6666"
+    },
+    {
+        "id": "300002IN",
+        "nombre": "Chuck",
+        "apellido": "Norris",
+        "tipoDni": "DNI",
+        "nroDni": "11222333",
+        "mail": "yonosoychucknorris@mail",
+        "tipoCliente": "Individual",
+        "pais": "Burzaco",
+        "ciudad": "Glew",
+        "telefono": "555-6666"
+    },
+    {
+        "id": "300003CO",
+        "nombre": "Max",
+        "apellido": "Payne",
+        "tipoDni": "DNI",
+        "nroDni": "11222333",
+        "mail": "correo@mail",
+        "tipoCliente": "Corporativo",
+        "pais": "Uganda",
+        "ciudad": "Munro",
+        "telefono": "555-6666"
+    },
+    {
+        "id": "300004CO",
+        "nombre": "Kali",
+        "apellido": "Black",
+        "tipoDni": "DNI",
+        "nroDni": "11222333",
+        "mail": "correo@mail",
+        "tipoCliente": "Corporativo",
+        "pais": "Uganda",
+        "ciudad": "Munro",
         "telefono": "555-6666"
     }
 ]

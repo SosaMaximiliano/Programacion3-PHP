@@ -2,16 +2,6 @@
 
 require_once 'Manejador.php';
 
-/*
-B- ClienteAlta.php: (por POST) se ingresa Nombre y Apellido, Tipo Documento, Nro.
-Documento, Email, Tipo de Cliente (individual o corporativo), País, Ciudad y Teléfono.
-Se guardan los datos en el archivo hoteles.json, tomando un id autoincremental de 6
-dígitos como Nro. de Cliente (emulado). Si el nombre y tipo ya existen , se actualiza la
-información y se agrega al registro existente.
-completar el alta con imagen/foto del cliente, guardando la imagen con Número y Tipo
-de Cliente (ej.: NNNNNNTT) como identificación en la carpeta:
-/ImagenesDeClientes/2023.
-*/
 
 class Cliente
 {
@@ -22,11 +12,11 @@ class Cliente
     private $tipoDni;
     private $nroDni;
     private $mail;
-    private $tipoCliente;
     private $pais;
     private $ciudad;
     private $telefono;
     private static $id;
+    private static $tipoCliente = array("Individual" => "IN", "Corporativo" => "CO");
     private static $clientes = array();
 
     public function __construct($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono)
@@ -41,12 +31,9 @@ class Cliente
     private static function AltaJSON($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono)
     {
         self::$clientes = Manejador::LeerJSON("Hoteles");
-        $flag = false;
-
         #REVISO SI EL CLIENTE EXISTE
-        if (($idAux = self::ExisteCliente($nombre, $apellido, $tipoDni, $nroDni)) > 0)
+        if (self::ExisteCliente($nombre, $apellido, $tipoDni, $nroDni) > 0)
         {
-            //self::ActualizoClientes($idAux, $telefono, $mail);
             echo "El cliente ya se encuentra registrado";
             return;
         }
@@ -54,7 +41,6 @@ class Cliente
         #SI NO CARGO UNO NUEVO
         {
             self::AgregoCliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono);
-            $flag = true;
         }
 
         #ESCRIBO EN EL ARCHIVO
@@ -64,11 +50,6 @@ class Cliente
         $extension = explode(".", $_FILES["imagen"]["full_path"]);
         $destino = "ImagenesDeClientes/2023/" . self::$id . $tipoCliente . "." . $extension[1];
         move_uploaded_file($_FILES['imagen']['tmp_name'], $destino);
-
-        // if (!$flag)
-        //     echo "$nombre $apellido, $nroDni ya se ecnuentra ingresado<br>Se suma al resto de stock";
-        // else
-        //     echo "El stock de $nombre $tipo se ingresó correctamente<br>";
 
         echo "El cliente $nombre $apellido se ingresó correctamente<br>";
     }
@@ -85,26 +66,36 @@ class Cliente
         return 0;
     }
 
-
-    public static function ActualizoClientes($id, $nuevoTelefono, $nuevoMail)
+    public static function BuscarCliente($tipoCliente, $idCliente)
     {
-        self::$clientes = Manejador::LeerJSON("Hoteles");
-        foreach (self::$clientes as &$e)
+        $listado = Manejador::LeerJSON("Hoteles");
+        foreach ($listado as $e)
         {
-            if ($e["id"] == $id)
-            {
-                $e["telefono"] = $nuevoTelefono;
-                $e["mail"] = $nuevoMail;
-                break;
-            }
+            if ($e["tipoCliente"] == $tipoCliente && $e["id"] == $idCliente)
+                return $e;
         }
+        return [];
     }
+
+    // public static function ActualizoClientes($id, $nuevoTelefono, $nuevoMail)
+    // {
+    //     self::$clientes = Manejador::LeerJSON("Hoteles");
+    //     foreach (self::$clientes as &$e)
+    //     {
+    //         if ($e["id"] == $id)
+    //         {
+    //             $e["telefono"] = $nuevoTelefono;
+    //             $e["mail"] = $nuevoMail;
+    //             break;
+    //         }
+    //     }
+    // }
 
     private static function AgregoCliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono)
     {
         self::$id = strval(Manejador::UltimoIDJSON("Hoteles"));
         $arrayClientes = array(
-            "id" => self::$id,
+            "id" => self::$id . self::$tipoCliente[$tipoCliente],
             "nombre" => $nombre,
             "apellido" => $apellido,
             "tipoDni" => $tipoDni,
@@ -115,7 +106,7 @@ class Cliente
             "ciudad" => $ciudad,
             "telefono" => $telefono,
         );
-        #AGREGO EL PEDIDO A LA LISTA
+        #AGREGO EL CLIENTE A LA LISTA
         self::$clientes[] = $arrayClientes;
     }
 
@@ -138,33 +129,10 @@ class Cliente
             }
         }
         if ($flagID)
-            echo "No existe el tipo de cliente";
+            echo "Tipo de cliente incorrecto";
         else
             echo "No existe el ID y tipo de cliente";
     }
-
-    // public static function ExisteStock($nombre, $tipo)
-    // {
-    //     $listado = Manejador::LeerJSON("Hoteles");
-    //     $arrayAux = array();
-    //     foreach ($listado as $e)
-    //     {
-    //         if ($e["cantidad"] > 0)
-    //             if ($e["nombre"] == $nombre)
-    //                 $arrayAux[] = $e;
-    //     }
-    //     foreach ($arrayAux as $e)
-    //     {
-    //         if ($e["tipo"] == $tipo)
-    //             return $e["id"];
-    //     }
-    //     if (count($arrayAux) > 0)
-    //         return -1;
-    //     return 0;
-    // }
-
-
-
 
 
 
