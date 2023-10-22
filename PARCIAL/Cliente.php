@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Manejador.php';
+include_once 'Manejador.php';
 
 
 class Cliente
@@ -77,19 +77,21 @@ class Cliente
         return [];
     }
 
-    // public static function ActualizoClientes($id, $nuevoTelefono, $nuevoMail)
-    // {
-    //     self::$clientes = Manejador::LeerJSON("Hoteles");
-    //     foreach (self::$clientes as &$e)
-    //     {
-    //         if ($e["id"] == $id)
-    //         {
-    //             $e["telefono"] = $nuevoTelefono;
-    //             $e["mail"] = $nuevoMail;
-    //             break;
-    //         }
-    //     }
-    // }
+    public static function ActualizoClientes($id, $nuevoTelefono, $nuevoMail)
+    {
+        self::$clientes = Manejador::LeerJSON("Hoteles");
+        foreach (self::$clientes as &$e)
+        {
+            if ($e["id"] == $id)
+            {
+                echo "Cliente encontrado";
+                $e["telefono"] = $nuevoTelefono;
+                $e["mail"] = $nuevoMail;
+                #ESCRIBIR DATOS
+                break;
+            }
+        }
+    }
 
     private static function AgregoCliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono)
     {

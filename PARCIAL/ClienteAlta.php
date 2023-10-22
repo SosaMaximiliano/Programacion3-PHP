@@ -11,7 +11,7 @@ de Cliente (ej.: NNNNNNTT) como identificación en la carpeta:
 */
 
 
-require_once 'Cliente.php';
+var_dump(include_once './Cliente.php');
 
 if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['tipoDni']) && isset($_POST['nroDni']) && isset($_POST['mail']) && isset($_POST['tipoCliente']) && isset($_POST['pais']) && isset($_POST['ciudad']) && isset($_POST['telefono']))
 {

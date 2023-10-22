@@ -1,3 +1,4 @@
+
 <?php
 /*
 4- ConsultaReservas.php: (por GET)
@@ -9,28 +10,39 @@ c- El listado de reservas entre dos fechas ordenado por fecha.
     d- El listado de reservas por tipo de habitación.
 */
 
+#HAY ALGUN ERROR EN EL REQUIRE
 
-require_once 'Reserva.php';
+
+include_once 'Reserva.php';
+
+// if (isset($_GET['habitacion'], $_GET['fecha']))
+// {
+//     $habitacion = $_GET['habitacion'];
+//     $fecha = $_GET['fecha'];
+//     Reserva::ConsultarReservaFecha($habitacion, $fecha);
+// }
 
 if (isset($_GET['tipoCliente']) && isset($_GET['nroCliente']))
 {
     $tipoCliente = $_GET['tipoCliente'];
     $nroCliente = $_GET['nroCliente'];
-
+    var_dump($tipoCliente);
+    var_dump($nroCliente);
     Reserva::ConsultarReservaCliente($tipoCliente, $nroCliente);
 }
-elseif (isset($_GET['habitacion']) && isset($_GET['entrada']))
-{
-    $tipoHabitacion = $_GET['habitacion'];
-    $fecha = $_GET['entrada'];
+// elseif (isset($_GET['habitacion']) && isset($_GET['entrada']))
+// {
+//     $tipoHabitacion = $_GET['habitacion'];
+//     $fecha = $_GET['entrada'];
 
-    //Reserva::ConsultarReservaFecha($tipoHabitacion, $fecha);
-    Reserva::ConsultarReservaHabitacion($tipoHabitacion);
-}
-elseif (isset($_GET['desde']) && isset($_GET['hasta']))
-{
-    $desde = $_GET['desde'];
-    $hasta = $_GET['hasta'];
-    Reserva::ConsultarReservaEntreFechas($desde, $hasta);
-}
+//     //Reserva::ConsultarReservaFecha($tipoHabitacion, $fecha);
+//     Reserva::ConsultarReservaHabitacion($tipoHabitacion);
+// }
+// elseif (isset($_GET['desde']) && isset($_GET['hasta']))
+// {
+//     echo "OHHH";
+//     $desde = $_GET['desde'];
+//     $hasta = $_GET['hasta'];
+//     Reserva::ConsultarReservaEntreFechas($desde, $hasta);
+// }
 else echo "Completar todos los parametros";

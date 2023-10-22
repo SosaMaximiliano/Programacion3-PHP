@@ -11,16 +11,18 @@ Cliente, Nro. de Cliente e Id de Reserva, guardando la imagen en la carpeta
 /ImagenesDeReservas2023.
 */
 
-require_once 'Reserva.php';
+include "Reserva.php";
 
-if (isset($_POST['tipoCliente']) && isset($_POST['tipoCliente']) && isset($_POST['entrada']) && isset($_POST['salida']) && isset($_POST['habitacion']))
+if (isset($_POST['tipoCliente']) && isset($_POST['nroCliente']) && isset($_POST['entrada']) && isset($_POST['salida']) && isset($_POST['habitacion']))
 {
+    echo "reserva";
     $tipoCliente = $_POST['tipoCliente'];
-    $nroCliente = $_POST['id'];
+    $nroCliente = $_POST['nroCliente'];
     $entrada = $_POST['entrada'];
     $salida = $_POST['salida'];
     $habitacion = $_POST['habitacion'];
 
-    Reserva::ReservaHabitacion($tipoCliente, $nroCliente, $entrada, $salida, $habitacion);
+    $reserva = new Reserva($tipoCliente, $nroCliente, $entrada, $salida, $habitacion);
+    var_dump($reserva);
 }
 else echo "Completar todos los parametros";

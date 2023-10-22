@@ -1,6 +1,6 @@
 <?php
 
-include_once "Manejador.php";
+
 
 class Reserva
 {
@@ -13,6 +13,11 @@ class Reserva
     public function __construct($tipoCliente, $nroCliente, $entrada, $salida, $habitacion)
     {
         self::ReservaHabitacion($tipoCliente, $nroCliente, $entrada, $salida, $habitacion);
+    }
+
+    public static function A()
+    {
+        echo "AAAAA";
     }
 
     private static function ReservaHabitacion($tipoCliente, $nroCliente, $entrada, $salida, $habitacion)
