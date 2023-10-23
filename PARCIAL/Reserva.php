@@ -272,14 +272,24 @@ class Reserva
         {
             if ($e['id'] === $idReserva)
             {
-                #MODIFICO
-                $e['habitacion'] = $nuevaHabitacion;
-                $e["importe"] = strval(self::$habitaciones[$nuevaHabitacion]);
-                $ajuste["reserva"] = $e['id'];
-                $ajuste["motivo"] = $motivo;
-                $ajustes[] = $ajuste;
-                $flagModifico = true;
-                break;
+                if ($e['habitacion'] != $nuevaHabitacion)
+                {
+                    $hAux = $e['habitacion'];
+                    #MODIFICO
+                    $e['habitacion'] = $nuevaHabitacion;
+                    $e["importe"] = strval(self::$habitaciones[$nuevaHabitacion]);
+                    $ajuste["reserva"] = $e['id'];
+                    $ajuste["motivo"] = "$motivo: $hAux => {$e['habitacion']}";
+                    $ajuste["nuevo valor"] = $e['importe'];
+                    $ajustes[] = $ajuste;
+                    $flagModifico = true;
+                    break;
+                }
+                else
+                {
+                    echo "La habitacion ya es del tipo $nuevaHabitacion";
+                    return false;
+                }
             }
         }
         if ($flagModifico)
@@ -289,6 +299,7 @@ class Reserva
             $jsonA = json_encode($ajustes, JSON_PRETTY_PRINT);
             Manejador::EscribirArchivo($jsonR, "Reservas");
             Manejador::EscribirArchivo($jsonA, "Ajustes");
+            echo "los cambios se realizaron correctamente";
         }
         else echo "No hay reservas para modificar";
     }

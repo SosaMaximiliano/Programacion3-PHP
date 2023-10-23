@@ -8,10 +8,13 @@ Guardar en el archivo ajustes.json
 Actualiza en el estado de la reserva en el archivo reservas.json
 */
 
-include "a.php";
-
-$idReserva = $_POST['idReserva'];
-$motivo = $_POST['motivo'];
-$nuevaHabitacion = $_POST['nuevaHabitacion'];
-
-a::AjustaReserva($idReserva, $motivo, $nuevaHabitacion);
+include_once "Reserva.php";
+if (isset($_POST['idReserva']) && isset($_POST['motivo']) && isset($_POST['nuevaHabitacion']))
+{
+    $idReserva = $_POST['idReserva'];
+    $motivo = $_POST['motivo'];
+    $nuevaHabitacion = $_POST['nuevaHabitacion'];
+    Reserva::AjustaReserva($idReserva, $motivo, $nuevaHabitacion);
+}
+else
+    echo "Completar todos los campos";

@@ -22,10 +22,6 @@ if (isset($_SERVER['REQUEST_METHOD']))
                 case 'ajuste':
                     include 'AjusteReserva.php';
                     break;
-                    //BORRAR
-                case 'modifica':
-                    include 'ModificarCliente.php';
-                    break;
                 default:
                     echo 'Parámetro "action" no permitido';
                     break;

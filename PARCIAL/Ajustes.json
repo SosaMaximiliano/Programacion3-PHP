@@ -1,18 +1,7 @@
 [
-    {
-        "reserva": "309967",
-        "motivo": "Cambio de habitacion"
-    },
-    {
-        "reserva": "309967",
-        "motivo": "Cambio de habitacion"
-    },
-    {
-        "reserva": "460171",
-        "motivo": "Cambio de habitacion"
-    },
-    {
-        "reserva": "460172",
-        "motivo": "Cambio de habitacion"
-    }
+  {
+    "reserva": "460171",
+    "motivo": "Cambio de habitacion: Doble => Suite",
+    "nuevo valor": "3000"
+  }
 ]
