@@ -37,5 +37,18 @@
         "habitacion": "Doble",
         "importe": "1000",
         "estado": "Activa"
+    },
+    {
+        "id": "460174",
+        "nombre": "Thanasis",
+        "apellido": "Kleopas",
+        "nroDni": "336699",
+        "tipoCliente": "Individual",
+        "nroCliente": "300008IN",
+        "entrada": "2023-10-10",
+        "salida": "2023-10-20",
+        "habitacion": "Doble",
+        "importe": "1000",
+        "estado": "activa"
     }
 ]
