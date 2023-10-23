@@ -13,15 +13,15 @@
     },
     {
         "id": "300001IN",
-        "nombre": "Bob Esponja",
-        "apellido": "Pantalones Cuadrados",
-        "tipoDni": "DNI",
-        "nroDni": "11222333",
-        "mail": "yonosoybatman@mail",
+        "nombre": "Patricio",
+        "apellido": "Estrella",
+        "tipoDni": "Pasaporte",
+        "nroDni": "6",
+        "mail": "arroba@arroba",
         "tipoCliente": "Individual",
-        "pais": "Burzaco",
-        "ciudad": "Glew",
-        "telefono": "555-6666"
+        "pais": "Fondo de Bikini",
+        "ciudad": "Hawaii",
+        "telefono": "1314159"
     },
     {
         "id": "300002IN",
@@ -70,5 +70,41 @@
         "pais": "Uruguay",
         "ciudad": "Vietnam",
         "telefono": "8"
+    },
+    {
+        "id": "300006CO",
+        "nombre": "Pipo",
+        "apellido": "Gorosito",
+        "tipoDni": "Pasaporte",
+        "nroDni": "336699",
+        "mail": "yosoypipo@yahoo.com",
+        "tipoCliente": "Corporativo",
+        "pais": "Almagro",
+        "ciudad": "Rio de janeiro",
+        "telefono": "555-5555"
+    },
+    {
+        "id": "300007CO",
+        "nombre": "Homero",
+        "apellido": "Simpson",
+        "tipoDni": "DNI",
+        "nroDni": "336699",
+        "mail": "ouch@yahoo.com",
+        "tipoCliente": "Corporativo",
+        "pais": "EEUU",
+        "ciudad": "Springfield",
+        "telefono": "555-5555"
+    },
+    {
+        "id": "300008IN",
+        "nombre": "Thanasis",
+        "apellido": "Kleopas",
+        "tipoDni": "DNI",
+        "nroDni": "336699",
+        "mail": "alfa@yahoo.com",
+        "tipoCliente": "Individual",
+        "pais": "Hellas",
+        "ciudad": "Amorgos",
+        "telefono": "555-5555"
     }
 ]

@@ -11,7 +11,7 @@ de Cliente (ej.: NNNNNNTT) como identificación en la carpeta:
 */
 
 
-var_dump(include_once './Cliente.php');
+include_once './Cliente.php';
 
 if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['tipoDni']) && isset($_POST['nroDni']) && isset($_POST['mail']) && isset($_POST['tipoCliente']) && isset($_POST['pais']) && isset($_POST['ciudad']) && isset($_POST['telefono']))
 {
@@ -25,6 +25,7 @@ if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['tipoDn
     $ciudad = $_POST['ciudad'];
     $telefono = $_POST['telefono'];
 
-    $cliente = new Cliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono);
+    //$cliente = new Cliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono);
+    Cliente::AltaCliente($nombre, $apellido, $tipoDni, $nroDni, $mail, $tipoCliente, $pais, $ciudad, $telefono);
 }
 else echo "Por favor completar todos los datos";

@@ -1,38 +1,41 @@
 [
-  {
-    "id": "309966",
-    "nombre": "Juan Carlos",
-    "apellido": "Batman",
-    "nroDni": "11222333",
-    "tipoCliente": "Corporativo",
-    "nroCliente": "300000CO",
-    "entrada": "2023-10-12",
-    "salida": "2023-10-24",
-    "habitacion": "Doble",
-    "importe": "1000"
-  },
-  {
-    "id": "309967",
-    "nombre": "Bob Esponja",
-    "apellido": "Pantalones Cuadrados",
-    "nroDni": "11222333",
-    "tipoCliente": "Individual",
-    "nroCliente": "300001IN",
-    "entrada": "2023-10-15",
-    "salida": "2023-10-26",
-    "habitacion": "Suite",
-    "importe": "3000"
-  },
-  {
-    "id": "309968",
-    "nombre": "Max",
-    "apellido": "Payne",
-    "nroDni": "11222333",
-    "tipoCliente": "Corporativo",
-    "nroCliente": "300003CO",
-    "entrada": "2023-10-18",
-    "salida": "2023-10-29",
-    "habitacion": "Suite",
-    "importe": "3000"
-  }
+    {
+        "id": "460170",
+        "nombre": "Kali",
+        "apellido": "Black",
+        "nroDni": "11222333",
+        "tipoCliente": "Corporativo",
+        "nroCliente": "300004CO",
+        "entrada": "2023-12-25",
+        "salida": "2024-01-01",
+        "habitacion": "Simple",
+        "importe": "500",
+        "estado": "Activa"
+    },
+    {
+        "id": "460171",
+        "nombre": "Juan Carlos",
+        "apellido": "Batman",
+        "nroDni": "11222333",
+        "tipoCliente": "Corporativo",
+        "nroCliente": "300000CO",
+        "entrada": "2023-10-25",
+        "salida": "2023-12-01",
+        "habitacion": "Suite",
+        "importe": "3000",
+        "estado": "Cancelada"
+    },
+    {
+        "id": "460173",
+        "nombre": "Homero",
+        "apellido": "Simpson",
+        "nroDni": "336699",
+        "tipoCliente": "Corporativo",
+        "nroCliente": "300007CO",
+        "entrada": "2023-10-10",
+        "salida": "2023-10-20",
+        "habitacion": "Doble",
+        "importe": "1000",
+        "estado": "Activa"
+    }
 ]

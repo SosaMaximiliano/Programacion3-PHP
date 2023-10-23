@@ -15,14 +15,12 @@ include "Reserva.php";
 
 if (isset($_POST['tipoCliente']) && isset($_POST['nroCliente']) && isset($_POST['entrada']) && isset($_POST['salida']) && isset($_POST['habitacion']))
 {
-    echo "reserva";
     $tipoCliente = $_POST['tipoCliente'];
     $nroCliente = $_POST['nroCliente'];
     $entrada = $_POST['entrada'];
     $salida = $_POST['salida'];
     $habitacion = $_POST['habitacion'];
 
-    $reserva = new Reserva($tipoCliente, $nroCliente, $entrada, $salida, $habitacion);
-    var_dump($reserva);
+    Reserva::ReservaHabitacion($tipoCliente, $nroCliente, $entrada, $salida, $habitacion);
 }
 else echo "Completar todos los parametros";

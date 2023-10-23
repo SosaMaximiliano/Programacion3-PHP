@@ -2,6 +2,39 @@
 
 class Manejador
 {
+    public static function LeerJSON($nombreArchivo)
+    {
+        if (!file_exists("$nombreArchivo.json"))
+        {
+            echo "El archivo $nombreArchivo no existe";
+        }
+        try
+        {
+            $contenido = file_get_contents("$nombreArchivo.json");
+            return json_decode($contenido, true);
+        }
+        catch (Exception $e)
+        {
+            $e->getMessage();
+        }
+    }
+
+    public static function EscribirArchivo($jsonData, $nombreArchivo)
+    {
+        try
+        {
+            $archivo = fopen("$nombreArchivo.json", "w");
+            fwrite($archivo, $jsonData . "\n");
+            fclose($archivo);
+            return true;
+        }
+        catch (Exception $e)
+        {
+            echo "No se pudo abrir el archivo $nombreArchivo para escritura<br>";
+            $e->getMessage();
+        }
+        return false;
+    }
 
     public static function MostrarListadoJSON($nombreArchivo)
     {
@@ -14,25 +47,6 @@ class Manejador
             }
             echo '<br>';
         }
-    }
-
-    public static function LeerJSON($nombreArchivo)
-    {
-        $contenido = file_get_contents("$nombreArchivo.json");
-        return json_decode($contenido, true);
-    }
-
-
-    public static function EscribirArchivo($jsonData, $nombreArchivo)
-    {
-        if ($archivo = fopen("$nombreArchivo.json", "w"))
-        {
-            fwrite($archivo, $jsonData . "\n");
-            fclose($archivo);
-            return true;
-        }
-        else echo "No se pudo abrir el archivo para escritura<br>";
-        return false;
     }
 
     public static function UltimoIDJSON($nombreArchivo)
